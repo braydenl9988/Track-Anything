@@ -44,7 +44,7 @@ def download_checkpoint_from_google_drive(file_id, folder, filename):
 
     if not os.path.exists(filepath):
         print("Downloading checkpoints from Google Drive... tips: If you cannot see the progress bar, please try to download it manuall \
-              and put it in the checkpointes directory. E2FGVI-HQ-CVPR22.pth: https://github.com/MCG-NKU/E2FGVI(E2FGVI-HQ model)")
+              and put it in the checkpointes directory. E2FGVI-HQ-CVPR22.pth: https://github.com/MCG-NKU/E2FGVI/E2FGVI-HQ model)")
         url = f"https://drive.google.com/uc?id={file_id}"
         gdown.download(url, filepath, quiet=False)
         print("Downloaded successfully!")
@@ -378,7 +378,7 @@ SAM_checkpoint = download_checkpoint(sam_checkpoint_url, folder, sam_checkpoint)
 xmem_checkpoint = download_checkpoint(xmem_checkpoint_url, folder, xmem_checkpoint)
 e2fgvi_checkpoint = download_checkpoint_from_google_drive(e2fgvi_checkpoint_id, folder, e2fgvi_checkpoint)
 args.port = 12212
-args.device = "cuda:3"
+args.device = "cuda:0"
 # args.mask_save = True
 
 # initialize sam, xmem, e2fgvi models
@@ -598,5 +598,5 @@ with gr.Blocks() as iface:
         # cache_examples=True,
     ) 
 iface.queue(concurrency_count=1)
-iface.launch(debug=True, enable_queue=True, server_port=args.port, server_name="0.0.0.0")
+iface.launch(debug=True, enable_queue=True, server_port=args.port, server_name="127.0.0.1")
 # iface.launch(debug=True, enable_queue=True)
